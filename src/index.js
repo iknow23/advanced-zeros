@@ -9,4 +9,5 @@ var factorial = function(n) {
 module.exports = function getZerosCount(number, base) {
   //  вычисляю факториал
   var factorialResult = factorial(n);
+  factorialResult = '' + factorialResult;
 };
