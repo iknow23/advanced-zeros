@@ -1,26 +1,37 @@
-var factorial = function(n) {
-  if (n != 1) {
-    return n * factorial(n - 1);
-  } else {
-    return 1;
-  }
-}
-
 module.exports = function getZerosCount(number, base) {
-  //  счётчик нулей
-  var count = 0;
-  
-  //  вычисляю факториал
-  var factorialResult = factorial(n);
-  factorialResult = '' + factorialResult;
+  var primeNumber = {};
+  var minZeros = 0;
+  var maxPowerNumber = 0;
 
-  //  считаю кол-во нулей
-  for (var i = (factorialResult.length - 1); i >= 0; i--) {
-    if (factorialResult[i] == 0) {
-      count++;
-    } else {
-      count = count;
+  for (var i = 2; i <= base; i++) {
+
+    var counter = 0;
+    while (base % i == 0) {
+      counter++;
+      base /= i;
+    }
+
+    primeNumber[i] = counter;
+  }
+
+  for (var prime in primeNumber) {
+
+    for (var j = 0; Math.pow(prime, j) <= number; j++) {
+      maxPowerNumber = j;
+    }
+
+    var countZeros = 0;
+    for (maxPowerNumber; maxPowerNumber > 0; maxPowerNumber--) {
+      countZeros += Math.floor(number / Math.pow(prime, maxPowerNumber));
+    }
+    countZeros = Math.floor(countZeros / primeNumber[prime]);
+    if (minZeros == 0) {
+      minZeros = countZeros;
+    }
+    else if (minZeros > countZeros) {
+      minZeros = countZeros;
     }
   }
-  return count;
+
+  return minZeros;
 };
